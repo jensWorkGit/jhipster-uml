@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><uml:Model xmlns:uml="http://www.omg.org/spec/UML/20110701" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmi:version="2.1" xmi:id="_HT8BwKgbEeWfYJYHsgLNqg" name="packages">
+  <eAnnotations xmi:id="_HT8o0KgbEeWfYJYHsgLNqg" source="Objing">
+    <contents xmi:type="uml:Property" xmi:id="_HT8o0agbEeWfYJYHsgLNqg" name="exporterVersion">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_HT8o0qgbEeWfYJYHsgLNqg" value="3.0.0"/>
+    </contents>
+  </eAnnotations>
+  <packagedElement xmi:type="uml:Package" xmi:id="_HT8o06gbEeWfYJYHsgLNqg" name="firstLevel">
+    <packagedElement xmi:type="uml:Package" xmi:id="_HT8o1KgbEeWfYJYHsgLNqg" name="secondLevel">
+      <packagedElement xmi:type="uml:Class" xmi:id="_HT8o1agbEeWfYJYHsgLNqg" name="ClassC"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_HT8o1qgbEeWfYJYHsgLNqg" name="secondLevelAgain">
+      <packagedElement xmi:type="uml:Package" xmi:id="_HT8o16gbEeWfYJYHsgLNqg" name="thirdLevel">
+        <packagedElement xmi:type="uml:Class" xmi:id="_HT8o2KgbEeWfYJYHsgLNqg" name="ClassD">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_HT8o2agbEeWfYJYHsgLNqg" name="classE" visibility="public" type="_HT8o3agbEeWfYJYHsgLNqg" aggregation="composite" association="_HT8o26gbEeWfYJYHsgLNqg">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HT8o2qgbEeWfYJYHsgLNqg"/>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_HT8o26gbEeWfYJYHsgLNqg" memberEnd="_HT8o2agbEeWfYJYHsgLNqg _HT8o3KgbEeWfYJYHsgLNqg">
+          <ownedEnd xmi:type="uml:Property" xmi:id="_HT8o3KgbEeWfYJYHsgLNqg" visibility="public" type="_HT8o2KgbEeWfYJYHsgLNqg" association="_HT8o26gbEeWfYJYHsgLNqg"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_HT8o3agbEeWfYJYHsgLNqg" name="ClassE"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_HT8o3qgbEeWfYJYHsgLNqg" name="ClassB">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_HT8o36gbEeWfYJYHsgLNqg" name="classC" visibility="public" type="_HT8o1agbEeWfYJYHsgLNqg" aggregation="composite" association="_HT8o4agbEeWfYJYHsgLNqg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HT8o4KgbEeWfYJYHsgLNqg"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_HT8o4agbEeWfYJYHsgLNqg" memberEnd="_HT8o36gbEeWfYJYHsgLNqg _HT8o4qgbEeWfYJYHsgLNqg">
+      <ownedEnd xmi:type="uml:Property" xmi:id="_HT8o4qgbEeWfYJYHsgLNqg" visibility="public" type="_HT8o3qgbEeWfYJYHsgLNqg" association="_HT8o4agbEeWfYJYHsgLNqg"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_HT8o46gbEeWfYJYHsgLNqg" name="ClassA">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_HT8o5KgbEeWfYJYHsgLNqg" name="classB" visibility="public" type="_HT8o3qgbEeWfYJYHsgLNqg" aggregation="composite" association="_HT8o6agbEeWfYJYHsgLNqg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HT8o5agbEeWfYJYHsgLNqg"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_HT8o5qgbEeWfYJYHsgLNqg" name="classD" visibility="public" type="_HT8o2KgbEeWfYJYHsgLNqg" aggregation="shared" association="_HT8o66gbEeWfYJYHsgLNqg">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_HT8o56gbEeWfYJYHsgLNqg" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HT8o6KgbEeWfYJYHsgLNqg"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_HT8o6agbEeWfYJYHsgLNqg" memberEnd="_HT8o5KgbEeWfYJYHsgLNqg _HT8o6qgbEeWfYJYHsgLNqg">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_HT8o6qgbEeWfYJYHsgLNqg" visibility="public" type="_HT8o46gbEeWfYJYHsgLNqg" association="_HT8o6agbEeWfYJYHsgLNqg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_HT8o66gbEeWfYJYHsgLNqg" memberEnd="_HT8o5qgbEeWfYJYHsgLNqg _HT8o7KgbEeWfYJYHsgLNqg">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_HT8o7KgbEeWfYJYHsgLNqg" visibility="public" type="_HT8o46gbEeWfYJYHsgLNqg" association="_HT8o66gbEeWfYJYHsgLNqg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HT8o7agbEeWfYJYHsgLNqg"/>
+    </ownedEnd>
+  </packagedElement>
+</uml:Model>

@@ -383,4 +383,35 @@ describe('ModelioParser', function() {
       });
     });
   });
+
+  describe('when a package is defined in the diagram', function() {
+    function allClassesAreIn(parsedClasses) {
+      if (Object.keys(parsedClasses).length !== 5) {
+        return false;
+      }
+      var classNames = {
+        ClassA: null,
+        ClassB: null,
+        ClassC: null,
+        ClassD: null,
+        ClassE: null
+      };
+      for (var className in Object.keys(parsedClasses)) {
+        if (!classNames.hasOwnProperty(parsedClasses[className].name)) {
+          return false;
+        } else {
+          delete parsedClasses[className].name;
+        }
+      }
+      return Object.keys(classNames).length === 0;
+    }
+    it('ignores it, and extracts everything inside', function() {
+      var otherParser = ParserFactory.createParser(
+        './test/xmi/modelio_packages.xmi',
+        'sql');
+      //var parsedData = otherParser.parse();
+      //expect(allClassesAreIn(parsedData.classes)).to.be.true;
+
+    });
+  });
 });
