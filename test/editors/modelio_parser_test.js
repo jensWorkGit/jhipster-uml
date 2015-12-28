@@ -405,12 +405,19 @@ describe('ModelioParser', function() {
       }
       return Object.keys(classNames).length === 0;
     }
+    function allRelationshipsAreIn(parsedRelationships, parsedInjectedFields) {
+      if (Object.keys(parsedRelationships).length !== 4 && Object.keys(parsedInjectedFields).length !== 5) {
+        return false;
+      }
+
+    }
     it('ignores it, and extracts everything inside', function() {
       var otherParser = ParserFactory.createParser(
         './test/xmi/modelio_packages.xmi',
         'sql');
       //var parsedData = otherParser.parse();
       //expect(allClassesAreIn(parsedData.classes)).to.be.true;
+      //expect(allClassesAreIn(parsedData.associations)).to.be.true;
 
     });
   });
