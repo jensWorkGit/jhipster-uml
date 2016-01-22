@@ -8,7 +8,10 @@ var expect = require('chai').expect,
     fs = require('fs'),
     SQLTypes = require('../../lib/types/sql_types'),
     MongoDBTypes = require('../../lib/types/mongodb_types'),
-    CassandraTypes = require('../../lib/types/cassandra_types');
+    CassandraTypes = require('../../lib/types/cassandra_types'),
+    WrongDatabaseTypeException = require('../../lib/exceptions/wrong_database_type_exception'),
+    WrongPassedArgumentException = require('../../lib/exceptions/wrong_passed_argument_exception'),
+    NoRootElementException = require('../../lib/exceptions/no_root_element_exception');
 
 var parser = new UMLDesignerParser(
   getRootElement(readFileContent('./test/xmi/umldesigner.uml')),
@@ -23,13 +26,13 @@ describe('UMLDesignerParser', function() {
     it('finds the classes in the document', function() {
       expect(
         parser.rawClassesIndexes
-      ).to.deep.equal([ 0, 3, 5, 7, 12, 14, 15, 17, 19 ]);
+      ).to.deep.equal([ 0, 2, 4, 6, 8, 13, 15, 17 ]);
     });
 
     it('finds the types in the document', function() {
       expect(
         parser.rawTypesIndexes
-      ).to.deep.equal([ 1, 2 ]);
+      ).to.deep.equal([ 1 ]);
     });
 
     it('find the enumerations in the document', function() {
@@ -43,7 +46,7 @@ describe('UMLDesignerParser', function() {
     it('finds the associations in the document', function() {
       expect(
         parser.rawAssociationsIndexes
-      ).to.deep.equal([ 4, 6, 8, 9, 10, 11, 13, 16, 18, 20 ]);
+      ).to.deep.equal([ 3, 5, 7, 9, 10, 11, 12, 14, 16, 18 ]);
     });
   });
 
@@ -90,7 +93,7 @@ describe('UMLDesignerParser', function() {
               expectedTypes.indexOf(parser.parsedData.getType(type).name), 1);
           }
         });
-        expect(expectedTypes.length).to.equal(0);
+        expect(expectedTypes.length).to.equal(1);
       });
     });
 
@@ -209,7 +212,7 @@ describe('UMLDesignerParser', function() {
 
     describe('#addClass', function() {
       it('adds the found classes', function() {
-        expect(Object.keys(parser.parsedData.classes).length).to.equal(9);
+        expect(Object.keys(parser.parsedData.classes).length).to.equal(8);
       });
 
       it("adds the comment if there's any", function(){
@@ -228,7 +231,7 @@ describe('UMLDesignerParser', function() {
     describe('#addField', function() {
       describe('#addRegularField', function() {
         it('adds the fields', function() {
-          expect(Object.keys(parser.parsedData.fields).length).to.equal(22);
+          expect(Object.keys(parser.parsedData.fields).length).to.equal(19);
         });
 
         it("adds the comment if there's any", function(){
@@ -291,7 +294,6 @@ describe('UMLDesignerParser', function() {
             function() {
           it('is deduced from the field element, and added', function() {
             expect(parser.parsedData.getType('String').name).to.equal('String');
-            expect(parser.parsedData.getType('Integer').name).to.equal('Integer');
           });
         });
       });
@@ -305,12 +307,6 @@ describe('UMLDesignerParser', function() {
 
     it('inserts the found associations', function() {
       expect(Object.keys(parser.parsedData.associations).length).to.equal(10);
-    });
-
-    describe('#addInjectedField', function() {
-      it('adds the injected fields', function() {
-        expect(Object.keys(parser.parsedData.injectedFields).length).to.equal(10);
-      });
     });
   });
 });
