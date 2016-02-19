@@ -231,7 +231,7 @@ describe('UMLDesignerParser', function() {
     describe('#addField', function() {
       describe('#addRegularField', function() {
         it('adds the fields', function() {
-          expect(Object.keys(parser.parsedData.fields).length).to.equal(19);
+          expect(Object.keys(parser.parsedData.fields).length).to.equal(26);
         });
 
         it("adds the comment if there's any", function(){
@@ -323,8 +323,7 @@ function getRootElement(content) {
       root = result['xmi:XMI']['uml:Model'][0];
     } else {
       throw new NoRootElementException(
-        'The passed document has no immediate root element,'
-        + ' exiting now.');
+        'The passed document has no immediate root element.');
     }
   });
   return root;
@@ -335,7 +334,7 @@ function readFileContent(file) {
     throw new WrongPassedArgumentException(
       "The passed file '"
       + file
-      + "' must exist and must not be a directory, exiting now.'");
+      + "' must exist and must not be a directory.'");
   }
   return fs.readFileSync(file, 'utf-8');
 }
@@ -353,6 +352,6 @@ function initDatabaseTypeHolder(databaseTypeName) {
         'The passed database type is incorrect. '
         + "Must either be 'sql', 'mongodb', or 'cassandra'. Got '"
         + databaseTypeName
-        + "', exiting now.");
+        + "'.");
   }
 }

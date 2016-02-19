@@ -39,12 +39,12 @@ describe("DSL Parser", function(){
         expect(Object.keys(parser.parsedData.classes).length).to.be.equal(8);
       });
       it("there is the expected number of field",function(){
-        expect(Object.keys(parser.parsedData.fields).length).to.be.equal(21);
+        expect(Object.keys(parser.parsedData.fields).length).to.be.equal(28);
       });
       it("the class Object is well formed",function(){
         var classObj = parser.parsedData.classes["Employee"];
         expect(classObj.name).to.be.equals('Employee');
-        expect(classObj.fields.length).to.be.equals(7);
+        expect(classObj.fields.length).to.be.equals(8);
       });
       it("the field Object is well formed",function(){
         var firstNameFields = parser.parsedData.fields["Employee_firstName"];
@@ -141,6 +141,55 @@ describe("DSL Parser", function(){
         }
       });
     });
+
+    describe('when generating entities with options', function() {
+      describe("and using the '*' keyword", function() {
+        it('assigns the option for each entity', function() {
+          var parser = new DSLParser(
+            'test/jh/all_keyword_1.jh',
+            initDatabaseTypeHolder('sql'));
+          var parsedData = parser.parse();
+          expect(Object.keys(parsedData.classes).length).to.eq(3);
+          Object.keys(parsedData.classes).forEach(function(className) {
+            expect(parsedData.getClass(className).dto).to.eq('mapstruct');
+            expect(parsedData.getClass(className).pagination).to.eq('pager');
+            expect(parsedData.getClass(className).service).to.eq('serviceClass');
+          });
+        });
+      });
+      describe("and using the 'all' keyword", function() {
+        it('assigns the option for each entity', function() {
+          var parser = new DSLParser(
+            'test/jh/all_keyword_2.jh',
+            initDatabaseTypeHolder('sql'));
+          var parsedData = parser.parse();
+          expect(Object.keys(parsedData.classes).length).to.eq(3);
+          Object.keys(parsedData.classes).forEach(function(className) {
+            expect(parsedData.getClass(className).dto).to.eq('mapstruct');
+            expect(parsedData.getClass(className).pagination).to.eq('pager');
+            expect(parsedData.getClass(className).service).to.eq('serviceClass');
+          });
+        });
+      });
+      describe("and using the 'except' keyword", function() {
+        it("doesn't the option to the excluded entity", function() {
+          var parser = new DSLParser(
+            'test/jh/except_keyword.jh',
+            initDatabaseTypeHolder('sql'));
+          var parsedData = parser.parse();
+          expect(Object.keys(parsedData.classes).length).to.eq(3);
+          expect(parsedData.getClass('A').dto).to.eq('no');
+          expect(parsedData.getClass('B').dto).to.eq('no');
+          expect(parsedData.getClass('C').dto).to.eq('mapstruct');
+          expect(parsedData.getClass('A').pagination).to.eq('pager');
+          expect(parsedData.getClass('B').pagination).to.eq('no');
+          expect(parsedData.getClass('C').pagination).to.eq('no');
+          expect(parsedData.getClass('A').service).to.eq('no');
+          expect(parsedData.getClass('B').service).to.eq('serviceClass');
+          expect(parsedData.getClass('C').service).to.eq('no');
+        });
+      });
+    });
   });
 
 });
@@ -158,7 +207,7 @@ function initDatabaseTypeHolder(databaseTypeName) {
         'The passed database type is incorrect. '
         + "Must either be 'sql', 'mongodb', or 'cassandra'. Got '"
         + databaseTypeName
-        + "', exiting now.");
+        + "'.");
   }
 }
 
