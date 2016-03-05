@@ -5,15 +5,16 @@ var expect = require('chai').expect,
   	ParserFactory = require('../lib/editors/parser_factory'),
     cardinalities = require('../lib/cardinalities');
 
-var parser = ParserFactory.createParser('./test/xmi/modelio.xmi', 'sql');
+var parser = ParserFactory.createParser({
+  file:'./test/xmi/modelio.xmi',
+  databaseType: 'sql'
+});
 
 var parsedData = parser.parse();
 
 var employeeId = '_0iCy-7ieEeW4ip1mZlCqPg';
 
-var scheduler = new ClassScheduler(
-  Object.keys(parsedData.classes),
-  parsedData.associations);
+var scheduler = new ClassScheduler(parsedData.classes, parsedData.associations);
 
 describe('ClassScheduler', function() {
   describe('#initialize', function() {
@@ -31,7 +32,7 @@ describe('ClassScheduler', function() {
       describe('for the injected fields', function() {
         it('throws an exception', function() {
           try {
-            new ClassScheduler(Object.keys(parsedData.classes), null);
+            new ClassScheduler(parsedData.classes, null);
           } catch (error) {
             expect(error.name).to.equal('NullPointerException');
           }
@@ -50,7 +51,7 @@ describe('ClassScheduler', function() {
     });
 
     it ('successfully creates a scheduler', function() {
-      new ClassScheduler(Object.keys(parsedData.classes), parsedData.associations);
+      new ClassScheduler(parsedData.classes, parsedData.associations);
     });
 
     it('initializes each of its attributes', function() {
@@ -66,12 +67,12 @@ describe('ClassScheduler', function() {
     describe(
         'when scheduling classes sorted so as to blend sorted and unsorted classes',
         function() {
-      var otherParser =
-        ParserFactory.createParser('./test/xmi/mappedby_test.xmi', 'sql');
+      var otherParser = ParserFactory.createParser({
+        file: './test/xmi/mappedby_test.xmi',
+        databaseType: 'sql'
+      });
       var parsedData = otherParser.parse();
-      var otherScheduler = new ClassScheduler(
-        Object.keys(parsedData.classes),
-        parsedData.associations);
+      var otherScheduler = new ClassScheduler(parsedData.classes, parsedData.associations);
       expect(
         otherScheduler.schedule().length
       ).to.equal(Object.keys(parsedData.classes).length);
@@ -306,11 +307,12 @@ describe('ClassScheduler', function() {
     it('throws an exception if it cannot sort anymore', function() {
 
       var otherParser =
-        ParserFactory.createParser('./test/xmi/modelio_circular_dep_test.xmi', 'sql');
+        ParserFactory.createParser({
+          file: './test/xmi/modelio_circular_dep_test.xmi',
+          databaseType: 'sql'
+        });
       var parsedData = otherParser.parse();
-      var otherScheduler = new ClassScheduler(
-        Object.keys(parsedData.classes),
-        parsedData.associations);
+      var otherScheduler = new ClassScheduler(parsedData.classes, parsedData.associations);
       try {
         otherScheduler.schedule();
         fail();
