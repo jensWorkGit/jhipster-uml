@@ -1,1 +1,1 @@
- git remote add https://github.com/jhipster/jhipster-uml.git
+git remote add https://github.com/jhipster/jhipster-uml.git
